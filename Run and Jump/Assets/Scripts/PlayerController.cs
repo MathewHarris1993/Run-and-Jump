@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     public float gravityModifier;
     public bool isOnGround = true;
     public bool gameOver;
-
-
+    public ParticleSystem explosionParticle;
+    public ParticleSystem dirtParticle;
     //set player rigidbody component variable
     private Rigidbody playerRb;
     private Animator playerAnim;
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
             playerAnim.SetTrigger("Jump_trig");
-
+            dirtParticle.Stop();
         }
    }
  private void OnCollisionEnter(Collision collision)
@@ -47,13 +47,16 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = true;
+            dirtParticle.Play();
+
         } else if(collision.gameObject.CompareTag("Fence"))
         {
             gameOver = true;
             Debug.Log("Game Over");
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
-
+            explosionParticle.Play();
+            dirtParticle.Stop();
 
         }
         //reset isOnGround variable to true once player lands
