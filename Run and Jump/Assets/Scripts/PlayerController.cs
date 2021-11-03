@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        if(Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver)
         {
 
             //allow player to jump when on ground and player pushes space
