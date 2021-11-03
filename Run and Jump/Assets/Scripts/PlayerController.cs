@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     //set player rigidbody component variable
     private Rigidbody playerRb;
+    private Animator playerAnim;
+
 
     void Start()
     {
@@ -20,7 +22,9 @@ public class PlayerController : MonoBehaviour
 
         //create access to gravity physics through the variable gravityModifier
         Physics.gravity *= gravityModifier;
-        
+
+        playerAnim = GetComponent<Animator>();
+
         
     }
 
@@ -33,6 +37,7 @@ public class PlayerController : MonoBehaviour
             //allow player to jump when on ground and player pushes space
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
+            playerAnim.SetTrigger("Jump_trig");
 
         }
    }
